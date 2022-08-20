@@ -11,7 +11,7 @@ public class RealtListingPage extends BasePage {
         super(driver);
     }
 
-    private final By card = By.xpath("//div[@class='listening-item highlighted']");
+    private final By card = By.xpath("//div[contains(@class,'listing') and contains(@class,'highlighted')]");
 
     public RealtListingPage checkCountCards() {
         waitElementIsVisible(driver.findElement(card));

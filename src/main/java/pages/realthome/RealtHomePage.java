@@ -22,7 +22,7 @@ public class RealtHomePage extends BasePage {
     }
 
     public RealtHomePage clickToFind() {
-        driver.findElement(submit);
+        driver.findElement(submit).click();
         return this;
     }
 }
