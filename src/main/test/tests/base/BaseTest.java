@@ -1,7 +1,6 @@
 package tests.base;
 
 import common.CommonAction;
-import common.Config;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import pages.base.BasePage;
@@ -9,7 +8,6 @@ import pages.listing.RealtListingPage;
 import pages.realthome.RealtHomePage;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class BaseTest {
     protected WebDriver driver = CommonAction.createDriver();
@@ -21,18 +19,24 @@ public class BaseTest {
     protected JavascriptExecutor je = (JavascriptExecutor) driver;
 
     protected Map<String,String> windows = new HashMap<>();
+
+    public void saveInitialTab() {
+        windows.put("initial", driver.getWindowHandle());
+    }
     public void switchWindow() {
-        windows.put("previous", driver.getWindowHandle());
+        Set<String> openedWindowsSet = driver.getWindowHandles();
         je.executeScript("window.open()");
 
-        String currentWindow = driver.getWindowHandles().stream().filter(x -> !x.startsWith(windows.get("previous"))).findFirst().get();
+        Set<String> newlyOpenedWindowsSet = driver.getWindowHandles();
+        newlyOpenedWindowsSet.removeAll(openedWindowsSet);
+        String currentWindow = newlyOpenedWindowsSet.stream().findFirst().get();
         windows.put("current", currentWindow);
         driver.switchTo().window(currentWindow);
     }
 
-    public void deleteTabAndReturnCurrent() {
-        je.executeScript("window.close()");
-        windows.put("current", windows.get("previous"));
+    public void deleteTabAndReturnInitial() {
+        driver.close();
+        windows.put("current", windows.get("initial"));
         driver.switchTo().window(windows.get("current"));
     }
 }

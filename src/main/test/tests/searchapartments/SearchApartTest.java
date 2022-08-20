@@ -1,7 +1,6 @@
 package tests.searchapartments;
 
 import org.testng.annotations.Test;
-import pages.base.BasePage;
 import tests.base.BaseTest;
 
 public class SearchApartTest extends BaseTest {
@@ -15,9 +14,5 @@ public class SearchApartTest extends BaseTest {
                  .clickToFind();
 
          realtListingPage.checkCountCards();
-         switchWindow();
-         driver.get("http://google.com");
-         deleteTabAndReturnCurrent();
-        driver.get("http://aka.ms");
      }
 }
