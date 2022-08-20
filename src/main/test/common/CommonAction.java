@@ -1,6 +1,7 @@
 package common;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.config.DriverManagerType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -20,7 +21,7 @@ public class CommonAction {
         if(driver == null) {
             switch (PLATFORM_AND_BROWSER) {
                 case "win_chrome":
-                    driver = WebDriverManager.getInstance().create();
+                    driver = WebDriverManager.getInstance(DriverManagerType.CHROME).create();
                     break;
                 default:
                     Assert.fail("Not valid web driver setting in config: " + PLATFORM_AND_BROWSER);
