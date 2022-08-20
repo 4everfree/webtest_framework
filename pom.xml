@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <webdrivermanager.version>5.2.3</webdrivermanager.version>
+        <testngxml.filepath>./src/main/test/resources/testng.xml</testngxml.filepath>
     </properties>
 
 
@@ -60,6 +61,9 @@
                         <version>${aspectj.version}</version>
                     </dependency>
                 </dependencies>
+                <configuration>
+                    <suiteXmlFiles>${testngxml.filepath}</suiteXmlFiles>
+                </configuration>
             </plugin>
         </plugins>
     </build>

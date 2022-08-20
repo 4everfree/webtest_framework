@@ -2,7 +2,6 @@ package tests.seleniumtools;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.base.BasePage;
 import tests.base.BaseTest;
 
 public class SwitchWindowTest extends BaseTest {

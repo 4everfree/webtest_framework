@@ -3,6 +3,7 @@ package tests.base;
 import common.CommonAction;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterSuite;
 import pages.base.BasePage;
 import pages.listing.RealtListingPage;
 import pages.realthome.RealtHomePage;
@@ -38,5 +39,10 @@ public class BaseTest {
         driver.close();
         windows.put("current", windows.get("initial"));
         driver.switchTo().window(windows.get("current"));
+    }
+
+    @AfterSuite(alwaysRun = true )
+    public void quit() {
+        driver.quit();
     }
 }
