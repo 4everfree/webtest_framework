@@ -2,14 +2,17 @@ package tests.base;
 
 import common.CommonAction;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Step;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.testng.TestListenerAdapter;
 import org.testng.annotations.*;
 import pages.base.BasePage;
 import pages.listing.RealtListingPage;
 import pages.realthome.RealtHomePage;
 
 import java.util.*;
+
 
 public class BaseTest {
     protected WebDriver driver;
@@ -26,6 +29,7 @@ public class BaseTest {
         windows.put("initial", driver.getWindowHandle());
     }
 
+    @Step("switch window")
     public void switchWindow() {
         Set<String> openedWindowsSet = driver.getWindowHandles();
         je.executeScript("window.open()");
@@ -37,6 +41,7 @@ public class BaseTest {
         driver.switchTo().window(currentWindow);
     }
 
+    @Step("return to initial tab")
     public void deleteTabAndReturnInitial() {
         driver.close();
         windows.put("current", windows.get("initial"));
