@@ -1,9 +1,10 @@
 package tests.base;
 
 import common.CommonAction;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterSuite;
+import org.testng.annotations.*;
 import pages.base.BasePage;
 import pages.listing.RealtListingPage;
 import pages.realthome.RealtHomePage;
@@ -11,19 +12,20 @@ import pages.realthome.RealtHomePage;
 import java.util.*;
 
 public class BaseTest {
-    protected WebDriver driver = CommonAction.createDriver();
-    protected BasePage basePage = new BasePage(driver);
-    protected RealtHomePage realtHomePage = new RealtHomePage(driver);
+    protected WebDriver driver;
+    protected BasePage basePage;
+    protected RealtHomePage realtHomePage;
 
-    protected RealtListingPage realtListingPage = new RealtListingPage(driver);
+    protected RealtListingPage realtListingPage;
 
-    protected JavascriptExecutor je = (JavascriptExecutor) driver;
+    protected JavascriptExecutor je;
 
-    protected Map<String,String> windows = new HashMap<>();
+    protected Map<String, String> windows = new HashMap<>();
 
     public void saveInitialTab() {
         windows.put("initial", driver.getWindowHandle());
     }
+
     public void switchWindow() {
         Set<String> openedWindowsSet = driver.getWindowHandles();
         je.executeScript("window.open()");
@@ -41,8 +43,24 @@ public class BaseTest {
         driver.switchTo().window(windows.get("current"));
     }
 
-    @AfterSuite(alwaysRun = true )
+    @BeforeMethod
+    public void before() {
+        driver = CommonAction.createDriver();
+        basePage = new BasePage(driver);
+        realtHomePage = new RealtHomePage(driver);
+        realtListingPage = new RealtListingPage(driver);
+        je = (JavascriptExecutor) driver;
+    }
+
+    @AfterMethod
+    public void after() {
+        driver = null;
+    }
+
+    @AfterSuite
     public void quit() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }

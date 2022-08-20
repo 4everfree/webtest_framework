@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <webdrivermanager.version>5.2.3</webdrivermanager.version>
-        <testngxml.filepath>./src/main/test/resources/testng.xml</testngxml.filepath>
+        <testngxml.file>testng.xml</testngxml.file>
     </properties>
 
 
@@ -41,6 +41,8 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <testSourceDirectory>${basedir}/src/main/test</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -62,7 +64,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <suiteXmlFiles>${testngxml.filepath}</suiteXmlFiles>
+                    <suiteXmlFiles>${project.build.testSourceDirectory}/resources/${testngxml.file}</suiteXmlFiles>
                 </configuration>
             </plugin>
         </plugins>

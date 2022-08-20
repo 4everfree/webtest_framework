@@ -8,10 +8,10 @@ public class SwitchWindowTest extends BaseTest {
 
     @Test
     public void switchWindowTest() {
-        saveInitialTab();
-        switchWindow();
         driver.get("http://google.com");
+        saveInitialTab();
         Assert.assertTrue(driver.getCurrentUrl().contains("google.com"));
+        switchWindow();
         deleteTabAndReturnInitial();
         driver.get("http://microsoft.com");
         Assert.assertTrue(driver.getCurrentUrl().contains("microsoft.com"));
