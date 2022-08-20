@@ -3,10 +3,9 @@ package common;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.DriverManagerType;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import static common.Config.IMPLICIT_WAIT;
 import static common.Config.PLATFORM_AND_BROWSER;
@@ -18,7 +17,7 @@ public class CommonAction {
     }
 
     public static WebDriver createDriver() {
-        if(driver == null) {
+        if (driver == null) {
             switch (PLATFORM_AND_BROWSER) {
                 case "win_chrome":
                     driver = WebDriverManager.getInstance(DriverManagerType.CHROME).create();
@@ -27,7 +26,7 @@ public class CommonAction {
                     Assert.fail("Not valid web driver setting in config: " + PLATFORM_AND_BROWSER);
             }
             driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_WAIT));
         }
         return driver;
     }
